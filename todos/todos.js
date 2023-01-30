@@ -29,6 +29,8 @@ todoForm.addEventListener('submit', async (e) => {
 async function displayTodos() {
     todosEl.textContent = '';
 
+    toDoData = await getTodos();
+
     for (let todo of toDoData) {
         const toDoEl = renderTodo(todo);
 
@@ -42,7 +44,6 @@ async function displayTodos() {
 }
 
 window.addEventListener('load', async () => {
-    toDoData = await getTodos();
     displayTodos();
 });
 
