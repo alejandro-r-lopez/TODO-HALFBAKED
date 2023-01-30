@@ -19,6 +19,11 @@ const deleteButton = document.querySelector('.delete-button');
 let toDoData = [];
 
 todoForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = new FormData(todoForm);
+    await createTodo(data.get('todo'));
+
+    displayTodos();
     // on submit,
     // create a todo in supabase using for data
     // reset the form DOM element
@@ -26,16 +31,16 @@ todoForm.addEventListener('submit', async (e) => {
 });
 
 async function displayTodos() {
+    todosEl.textContent = '';
     for (let toDo of toDoData) {
         const toDoBox = document.createElement('div');
-        const toDoItem = document.createElement('p');
 
-        toDoItem.textContent = toDo.todo;
-
-        toDoBox.append(toDoItem);
+        toDoBox.textContent = toDo.todo;
 
         todosEl.append(toDoBox);
     }
+    displayTodos();
+
     // clear the container (.textContent = '')
     // fetch the user's todos from supabase
     // loop through the user's todos
