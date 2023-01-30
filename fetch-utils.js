@@ -5,7 +5,7 @@ const SUPABASE_KEY =
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 export async function createTodo(todo) {
-    const { data, error } = await client.from('todos').insert([
+    const { data } = await client.from('todos').insert([
         {
             todo,
         },
@@ -13,10 +13,9 @@ export async function createTodo(todo) {
     return checkError(data);
 }
 
-export async function deleteAllTodos() {
-    // delete all todos for this user in supabase
-    // once you have a response from supabase, comment this back in:
-    // return checkError(response);
+export async function deleteAllTodos(user) {
+    const { data } = await client.from('todos').delete().eq('user_id', user.id);
+    return checkError(data);
 }
 
 export async function getTodos() {

@@ -5,6 +5,7 @@ import {
     getTodos,
     logout,
     deleteAllTodos,
+    getUser,
 } from '../fetch-utils.js';
 import { renderTodo } from '../render-utils.js';
 
@@ -52,6 +53,7 @@ logoutButton.addEventListener('click', () => {
 });
 
 deleteButton.addEventListener('click', async () => {
-    // delete all todos
-    // then refetch and display the updated list of todos
+    const user = await getUser();
+    await deleteAllTodos(user);
+    displayTodos();
 });
