@@ -10,10 +10,7 @@ export async function createTodo(todo) {
             todo,
         },
     ]);
-    return data;
-    // create a single incomplete todo with the correct 'todo' property for this user in supabase
-    // once you have a response from supabase, comment this back in:
-    // return checkError(response);
+    return checkError(data);
 }
 
 export async function deleteAllTodos() {
@@ -23,17 +20,15 @@ export async function deleteAllTodos() {
 }
 
 export async function getTodos() {
-    const { data, error } = await client.from('todos').select('*');
+    const { data } = await client.from('todos').select('*');
 
-    if (error) console.error(error);
-    else return data;
-    // get all todos for this user from supabase
+    return data;
 }
 
 export async function completeTodo(id) {
-    // find the and update (set complete to true), the todo that matches the correct id
-    // once you have a response from supabase, comment this back in:
-    // return checkError(response);
+    const { data } = await client.from('todos').update({ complete: true }).eq('id', id);
+
+    return data;
 }
 
 export function getUser() {
